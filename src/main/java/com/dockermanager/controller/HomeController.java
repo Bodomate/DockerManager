@@ -15,7 +15,6 @@ public class HomeController {
 	
 	DockerManagerService dockerService = new DockerManagerService();
 
-
 	@RequestMapping(value={"/", "/index"})
 	public String home() {
 		return "index";
@@ -43,7 +42,6 @@ public class HomeController {
 	
 	@RequestMapping(value="/connectSuccess", method=RequestMethod.POST)
 	public String addURL(@RequestParam("url") String url, Model model) {
-		
 			try {
 				model.addAttribute("success",dockerService.connect(url)+" connected successfully.");
 			} catch (DockerException | InterruptedException e) {
@@ -54,7 +52,6 @@ public class HomeController {
 	
 	@RequestMapping(value="/containers", method=RequestMethod.POST, params="action=Start")
 	public String containerStart(@RequestParam("id") String id, Model model) throws DockerException, InterruptedException {
-		
 		try {
 			model.addAttribute("message", dockerService.startContainer(id));
 		} catch (DockerException | InterruptedException e) {
@@ -67,7 +64,6 @@ public class HomeController {
 	
 	@RequestMapping(value="/containers", method=RequestMethod.POST, params="action=Stop")
 	public String containerStop(@RequestParam("id") String id, Model model) throws DockerException, InterruptedException {
-		
 		try {
 			model.addAttribute("message", dockerService.stopContainer(id));
 		} catch (DockerException | InterruptedException e) {
@@ -75,7 +71,6 @@ public class HomeController {
 		}
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("count",dockerService.getLocalContainers().size());
-		
 		return "containers";
 	}
 	
@@ -84,7 +79,6 @@ public class HomeController {
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("message", dockerService.containerInfo(id));
 		model.addAttribute("count",dockerService.getLocalContainers().size());
-		
 		return "containers";
 	}
 }

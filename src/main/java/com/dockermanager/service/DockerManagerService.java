@@ -33,8 +33,6 @@ public class DockerManagerService {
 		docker = DefaultDockerClient.builder()
 		        .uri(URI.create("http://"+url))
 		        .build();
-		
-		
 		fillLists();
 		return docker.getHost();
 	}
