@@ -64,28 +64,30 @@ http://www.templatemo.com/tm-488-classic
 	<section class="tm-section">
 		<div class="container-fluid">
 			<form action="containers" method="POST">
-				<select required th:size="*{count}" name='id'>
+				<select required th:size="*{count}" name='id' style="overflow-y: auto;width: 50%">
 					<option th:each="container : ${containers}" th:text="${container.toString()}" th:value="${container.id}">
 				</select><br/>
-				<button type="submit" name="action" value="start">Start</button>
-				<button type="submit" name="action" value="stop">Stop</button>
+				<input type="submit" name="action" value="Start" class="btn">
+				<input type="submit" name="action" value="Stop" class="btn">
+				<input type="submit" name="action" value="Info" class="btn">
 			</form>
+		</div>
+		<div class="container-fluid">
+			<p style="white-space: pre-line" th:text=${message}/>
 		</div>
 	</section>
 
 	<footer class="tm-footer">
-            <div class="container-fluid">
-                
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 tm-copyright-col">
+					<p class="tm-copyright-text">2018 - Bodó Máté Benjámin</p>
+				</div>
+			</div>
+		</div>
+	</footer>
 
-                <div class="row">
-                    <div class="col-xs-12 tm-copyright-col">
-                        <p class="tm-copyright-text">2018 - Bodó Máté Benjámin</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <!-- load JS files -->
+	<!-- load JS files -->
         <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
         <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
         <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->

@@ -47,7 +47,9 @@ public class LocalContainer {
 
 	@Override
 	public String toString() {
-		return image + ", status: " + status + "]";
+		return image + ", status: " + status;
 	}
+	
+	
 	
 }
