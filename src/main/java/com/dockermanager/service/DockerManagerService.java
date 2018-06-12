@@ -51,7 +51,6 @@ public class DockerManagerService {
 	public String startContainer(String id) throws DockerException, InterruptedException {
 		String started = "Image is already running!";
 		for (Container container : containers) {
-			System.out.println(id+" Exit");
 			if (container.id().equals(id) && container.status().substring(0, 4).equalsIgnoreCase("exit")) {
 				docker.startContainer(id);
 				started = container.image()+ " has been started.";

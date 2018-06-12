@@ -27,8 +27,13 @@ h2 { font-size: 2.2rem; }
 .container-fluid {
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 36;
 	max-width: 1390px;
 	overflow-x: hidden;
+}
+
+.mail {
+	text-align: right
 }
 
 @media (max-width: 1390px) {
