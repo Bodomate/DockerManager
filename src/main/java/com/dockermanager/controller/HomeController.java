@@ -35,6 +35,7 @@ public class HomeController {
 		return "containers";
 	}
 	
+	
 	@RequestMapping("/contact")
 	public String contact() {
 		return "contact";
@@ -78,6 +79,30 @@ public class HomeController {
 	public String containerInfo(@RequestParam("id") String id, Model model) throws DockerException, InterruptedException {
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("message", dockerService.containerInfo(id));
+		model.addAttribute("count",dockerService.getLocalContainers().size());
+		return "containers";
+	}
+	
+	@RequestMapping(value="/containers", method=RequestMethod.POST, params="action=Inspect")
+	public String containerInspect(@RequestParam("id") String id, Model model) throws DockerException, InterruptedException {
+		model.addAttribute("containers", dockerService.getLocalContainers());
+		model.addAttribute("message", dockerService.containerInspect(id));
+		model.addAttribute("count",dockerService.getLocalContainers().size());
+		return "containers";
+	}
+	
+	@RequestMapping(value="/containers", method=RequestMethod.POST, params="action=Top processes")
+	public String containerProcesses(@RequestParam("id") String id, Model model) throws DockerException, InterruptedException{
+		model.addAttribute("containers", dockerService.getLocalContainers());
+		model.addAttribute("message", dockerService.containerProcesses(id));
+		model.addAttribute("count",dockerService.getLocalContainers().size());
+		return "containers";
+	}
+	
+	@RequestMapping(value="/containers", method=RequestMethod.POST, params="action=Logs")
+	public String containerLogs(@RequestParam("id") String id, Model model) throws DockerException, InterruptedException {
+		model.addAttribute("containers", dockerService.getLocalContainers());
+		model.addAttribute("message", dockerService.containerLogs(id));
 		model.addAttribute("count",dockerService.getLocalContainers().size());
 		return "containers";
 	}

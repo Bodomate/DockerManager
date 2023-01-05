@@ -10,11 +10,18 @@ import java.util.List;
 import java.util.ListIterator;
 
 import com.dockermanager.domain.LocalContainer;
+import com.google.common.collect.ImmutableList;
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
 import com.spotify.docker.client.DockerClient.ListContainersParam;
+import com.spotify.docker.client.DockerClient.LogsParam;
+import com.spotify.docker.client.LogStream;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.messages.Container;
+import com.spotify.docker.client.messages.ContainerConfig;
+import com.spotify.docker.client.messages.ContainerCreation;
+import com.spotify.docker.client.messages.ContainerInfo;
+import com.spotify.docker.client.messages.TopResults;
 
 public class DockerManagerService {
 	private DockerClient docker;
@@ -78,6 +85,34 @@ public class DockerManagerService {
 			}
 		}
 		return "ID: " + cont.getId() + "\nImage: " + cont.getImage() +  "\nNames: " + cont.getNames() + "\nStatus: " + cont.getStatus() + ".";
+	}
+	
+	public String containerInspect(String id) throws DockerException, InterruptedException {
+		final ContainerInfo inspect = docker.inspectContainer(id);
+		return inspect.toString();
+	}
+
+	public String containerProcesses(String id) throws DockerException, InterruptedException {
+		String ps_args = "aux";
+		String message = "The container is not running!";
+		for (Container container : containers) {
+			if (container.id().equals(id) && container.status().substring(0, 2).equalsIgnoreCase("up")) {
+				final TopResults topResults = docker.topContainer(id, ps_args);
+				message = topResults.titles().toString() + "\n";
+				for (ImmutableList<String> list : topResults.processes()){
+					message += list.toString() + "\n";
+				}
+			}
+		}
+		return message;
+	}
+
+	public String containerLogs(String id) throws DockerException, InterruptedException {
+		String logs = "Logs not found!";
+		try (LogStream stream = docker.logs(id, LogsParam.stdout(), LogsParam.stderr())) {
+			logs = stream.readFully();
+		}
+		return logs;
 	}
 
 }

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Docker Manager - Containers</title>
+    <title>Docker Manager - Home</title>
 <!--
 Classic Template
 http://www.templatemo.com/tm-488-classic
@@ -40,13 +40,13 @@ http://www.templatemo.com/tm-488-classic
                         
                         <div class="collapse navbar-toggleable-sm" id="tmNavbar">
                             <ul class="nav navbar-nav">
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a href="index" class="nav-link">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="connect" class="nav-link">Connect</a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a href="containers" class="nav-link">Containers</a>
                                 </li>
                                 <li class="nav-item">
@@ -61,36 +61,40 @@ http://www.templatemo.com/tm-488-classic
             </div>            
         </div>
 
-	<section class="tm-section">
-		<div class="container-fluid">
-			<form action="containers" method="POST">
-				<select required th:size="*{count}" name='id' style="overflow-y: auto;width: 50%">
-					<option th:each="container : ${containers}" th:text="${container.toString()}" th:value="${container.id}">
-				</select><br/>
-				<input type="submit" name="action" value="Start" class="btn">
-				<input type="submit" name="action" value="Stop" class="btn">
-				<input type="submit" name="action" value="Info" class="btn">
-				<input type="submit" name="action" value="Inspect" class="btn">
-				<input type="submit" name="action" value="Top processes" class="btn">
-				<input type="submit" name="action" value="Logs" class="btn">
-			</form>
-		</div>
-		<div class="container-fluid">
-			<p class="message" th:text=${message}/>
-		</div>
-	</section>
+        <section class="tm-section">
+            <div class="container-fluid">
+				<h1 style="">Docker Manager - Online Docker Client API</h1>
+				<p>
+					Docker manager is an online way to connect and manage your docker server. Docker Manager is able to list all of your containers
+					whether it is running or not. The containers can be started, stopped by a single click on your mouse. You will be informed about
+					your containers in seconds.
+				</p>
+				<h2>Usage:</h2>
+				<ul>
+					<li>
+						<b>Connection:</b> Please go to Connect page by the menu. In the text field, write in your docker server's IP address and port separated
+						with a colon. Then click on Connect button which will connect your docker automatically.
+					</li>
+					<li>
+						<b>Reach your containers:</b> Go to Containers page by the menu. The Docker Manager lists all of your containers in a selectable list.
+						Select the one container by clicking on it's image name. With Start and Stop button you can run and stop your selected container.
+						Click on Info button to list additional information of the container. 
+					</li>
+				</ul>
+            </div>
+        </section>
+        
+        <footer class="tm-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 tm-copyright-col">
+                        <p class="tm-copyright-text">2018 - Bodó Máté Benjámin</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-	<footer class="tm-footer">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12 tm-copyright-col">
-					<p class="tm-copyright-text">2018 - Bodó Máté Benjámin</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<!-- load JS files -->
+        <!-- load JS files -->
         <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
         <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
         <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Docker Manager - Containers</title>
+    <title>Docker Manager - Contact</title>
 <!--
 Classic Template
 http://www.templatemo.com/tm-488-classic
@@ -46,10 +46,10 @@ http://www.templatemo.com/tm-488-classic
                                 <li class="nav-item">
                                     <a href="connect" class="nav-link">Connect</a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a href="containers" class="nav-link">Containers</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a href="contact" class="nav-link">Contact</a>
                                 </li>
                             </ul>                        
@@ -61,39 +61,34 @@ http://www.templatemo.com/tm-488-classic
             </div>            
         </div>
 
-	<section class="tm-section">
-		<div class="container-fluid">
-			<form action="containers" method="POST">
-				<select required th:size="*{count}" name='id' style="overflow-y: auto;width: 50%">
-					<option th:each="container : ${containers}" th:text="${container.toString()}" th:value="${container.id}">
-				</select><br/>
-				<input type="submit" name="action" value="Start" class="btn">
-				<input type="submit" name="action" value="Stop" class="btn">
-				<input type="submit" name="action" value="Info" class="btn">
-				<input type="submit" name="action" value="Inspect" class="btn">
-				<input type="submit" name="action" value="Top processes" class="btn">
-				<input type="submit" name="action" value="Logs" class="btn">
-			</form>
-		</div>
-		<div class="container-fluid">
-			<p class="message" th:text=${message}/>
-		</div>
-	</section>
+        <section class="tm-section">
+            <div class="container-fluid">
+                <h1>Docker Container - Szakdolgozat 2018</h1>
+                <p>Bodó Máté Benjámin</p>
+                <p>FNTQL4</p>
+                <p>Mérnök Informatikus</p>
+                <p>Műszaki és Informatikai Kar</p>
+                <p>Pécsi Tudományegyetem</p>
+                <p>Pécs, Hungary</p>
+                <p class="mail">E-mail: bodo.mate@gmail.com</p>
+            </div>
+        </section>
+        
+        <footer class="tm-footer">
+            <div class="container-fluid">
+                
+                <div class="row">
+                    <div class="col-xs-12 tm-copyright-col">
+                        <p class="tm-copyright-text">2018 - Bodó Máté Benjámin</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-	<footer class="tm-footer">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12 tm-copyright-col">
-					<p class="tm-copyright-text">2018 - Bodó Máté Benjámin</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<!-- load JS files -->
+        <!-- load JS files -->
         <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
         <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap, http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h --> 
-        <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->
-       
+        <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap (http://v4-alpha.getbootstrap.com/) -->           
+
 </body>
 </html>
