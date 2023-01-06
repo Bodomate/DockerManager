@@ -5,9 +5,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 import com.dockermanager.domain.LocalContainer;
 import com.google.common.collect.ImmutableList;
@@ -21,6 +23,8 @@ import com.spotify.docker.client.messages.Container;
 import com.spotify.docker.client.messages.ContainerConfig;
 import com.spotify.docker.client.messages.ContainerCreation;
 import com.spotify.docker.client.messages.ContainerInfo;
+import com.spotify.docker.client.messages.HostConfig;
+import com.spotify.docker.client.messages.PortBinding;
 import com.spotify.docker.client.messages.TopResults;
 
 public class DockerManagerService {
@@ -113,6 +117,36 @@ public class DockerManagerService {
 			logs = stream.readFully();
 		}
 		return logs;
+	}
+
+	public String createContainer() throws DockerException, InterruptedException {
+		docker.pull("alpine:3.14");
+
+		// Bind container ports to host ports
+		final String[] ports = {"80", "22"};
+		final Map<String, List<PortBinding>> portBindings = new HashMap<>();
+		for (String port : ports) {
+		    List<PortBinding> hostPorts = new ArrayList<>();
+		    hostPorts.add(PortBinding.of("0.0.0.0", port));
+		    portBindings.put(port, hostPorts);
+		}
+
+		// Bind container port 443 to an automatically allocated available host port.
+		List<PortBinding> randomPort = new ArrayList<>();
+		randomPort.add(PortBinding.randomPort("0.0.0.0"));
+		portBindings.put("443", randomPort);
+
+		final HostConfig hostConfig = HostConfig.builder().portBindings(portBindings).build();
+
+		// Create container with exposed ports
+		final ContainerConfig containerConfig = ContainerConfig.builder()
+		    .hostConfig(hostConfig)
+		    .image("alpine:3.14").exposedPorts(ports)
+		    .cmd("sh", "-c", "while :; do sleep 1; done")
+		    .build();
+
+		final ContainerCreation creation = docker.createContainer(containerConfig);
+		return creation.id();
 	}
 
 }

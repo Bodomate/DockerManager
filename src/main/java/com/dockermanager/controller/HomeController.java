@@ -60,6 +60,7 @@ public class HomeController {
 		}
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("count",dockerService.getLocalContainers().size());
+		model.addAttribute("id",id);
 		return "containers";
 	}
 	
@@ -105,5 +106,16 @@ public class HomeController {
 		model.addAttribute("message", dockerService.containerLogs(id));
 		model.addAttribute("count",dockerService.getLocalContainers().size());
 		return "containers";
+	}
+	
+	@RequestMapping(value="/create", method=RequestMethod.GET)
+	public String create() {
+		return "create";
+	}
+		
+	@RequestMapping(value="/create", method=RequestMethod.POST, params="action=Create")
+	public String createContainer(Model model) throws DockerException, InterruptedException {
+		model.addAttribute("message", dockerService.createContainer());
+		return "create";
 	}
 }
