@@ -81,6 +81,11 @@ public class DockerManagerService {
 		return stopped;
 	}
 	
+	public String removeContainer(String id) throws DockerException, InterruptedException {
+		docker.removeContainer(id);
+		return "The container has been removed.";
+	}
+	
 	public String containerInfo(String id) {
 		LocalContainer cont = null;
 		for (LocalContainer container : localContainers) {
@@ -119,30 +124,25 @@ public class DockerManagerService {
 		return logs;
 	}
 
-	public String createContainer() throws DockerException, InterruptedException {
-		docker.pull("alpine:3.14");
+	public String createContainer(String image, String ports, String cmd) throws DockerException, InterruptedException {
+		docker.pull(image);
 
 		// Bind container ports to host ports
-		final String[] ports = {"80", "22"};
+		final String[] portsArray = ports.split(" ");
 		final Map<String, List<PortBinding>> portBindings = new HashMap<>();
-		for (String port : ports) {
+		for (String port : portsArray) {
 		    List<PortBinding> hostPorts = new ArrayList<>();
 		    hostPorts.add(PortBinding.of("0.0.0.0", port));
 		    portBindings.put(port, hostPorts);
 		}
-
-		// Bind container port 443 to an automatically allocated available host port.
-		List<PortBinding> randomPort = new ArrayList<>();
-		randomPort.add(PortBinding.randomPort("0.0.0.0"));
-		portBindings.put("443", randomPort);
 
 		final HostConfig hostConfig = HostConfig.builder().portBindings(portBindings).build();
 
 		// Create container with exposed ports
 		final ContainerConfig containerConfig = ContainerConfig.builder()
 		    .hostConfig(hostConfig)
-		    .image("alpine:3.14").exposedPorts(ports)
-		    .cmd("sh", "-c", "while :; do sleep 1; done")
+		    .image(image).exposedPorts(ports)
+		    .cmd("sh", cmd)
 		    .build();
 
 		final ContainerCreation creation = docker.createContainer(containerConfig);

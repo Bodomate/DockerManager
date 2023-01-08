@@ -34,7 +34,11 @@ public class HomeController {
 		}
 		return "containers";
 	}
-	
+
+	@RequestMapping(value="/create")
+	public String create() {
+		return "create";
+	}
 	
 	@RequestMapping("/contact")
 	public String contact() {
@@ -73,6 +77,15 @@ public class HomeController {
 		}
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("count",dockerService.getLocalContainers().size());
+		model.addAttribute("id",id);
+		return "containers";
+	}
+	
+	@RequestMapping(value="/containers", method=RequestMethod.POST, params="action=Remove")
+	public String containerRemove(@RequestParam("id") String id, Model model) throws DockerException, InterruptedException {
+		model.addAttribute("message", dockerService.removeContainer(id));
+		model.addAttribute("containers", dockerService.getLocalContainers());
+		model.addAttribute("count",dockerService.getLocalContainers().size());
 		return "containers";
 	}
 	
@@ -81,6 +94,7 @@ public class HomeController {
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("message", dockerService.containerInfo(id));
 		model.addAttribute("count",dockerService.getLocalContainers().size());
+		model.addAttribute("id",id);
 		return "containers";
 	}
 	
@@ -89,6 +103,7 @@ public class HomeController {
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("message", dockerService.containerInspect(id));
 		model.addAttribute("count",dockerService.getLocalContainers().size());
+		model.addAttribute("id",id);
 		return "containers";
 	}
 	
@@ -97,6 +112,7 @@ public class HomeController {
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("message", dockerService.containerProcesses(id));
 		model.addAttribute("count",dockerService.getLocalContainers().size());
+		model.addAttribute("id",id);
 		return "containers";
 	}
 	
@@ -105,17 +121,18 @@ public class HomeController {
 		model.addAttribute("containers", dockerService.getLocalContainers());
 		model.addAttribute("message", dockerService.containerLogs(id));
 		model.addAttribute("count",dockerService.getLocalContainers().size());
+		model.addAttribute("id",id);
 		return "containers";
 	}
-	
-	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public String create() {
-		return "create";
-	}
-		
+			
 	@RequestMapping(value="/create", method=RequestMethod.POST, params="action=Create")
-	public String createContainer(Model model) throws DockerException, InterruptedException {
-		model.addAttribute("message", dockerService.createContainer());
+	public String createContainer(@RequestParam("image") String image, @RequestParam("ports") String ports,
+			@RequestParam("cmd") String cmd, Model model) throws DockerException, InterruptedException {
+		if (image == "" | ports == "" | cmd == "") {
+			model.addAttribute("message", "Please fill all input texts!");
+		} else {
+			model.addAttribute("message", dockerService.createContainer(image, ports, cmd) + " has been created successfully.");
+		}
 		return "create";
 	}
 }
