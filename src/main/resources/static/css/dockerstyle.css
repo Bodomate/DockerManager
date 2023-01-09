@@ -178,6 +178,10 @@ h2 {
 	margin-right: 12px;
 }
 
+.message {
+	white-space: pre;
+}
+
 @media (max-width: 1200px) {	
 	.header {
 		flex-direction: column;

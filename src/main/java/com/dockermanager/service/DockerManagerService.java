@@ -1,14 +1,10 @@
 package com.dockermanager.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import com.dockermanager.domain.LocalContainer;
@@ -47,7 +43,15 @@ public class DockerManagerService {
 		fillLists();
 		return docker.getHost();
 	}
-
+	
+	public String getHost() {
+		if (containers != null) {
+			return docker.getHost();
+		} else {
+			return "";
+		}
+	}
+	
 	private void fillLists() throws DockerException, InterruptedException {
 		containers = docker.listContainers(ListContainersParam.allContainers());
         localContainers.clear();
@@ -147,6 +151,12 @@ public class DockerManagerService {
 
 		final ContainerCreation creation = docker.createContainer(containerConfig);
 		return creation.id();
+	}
+
+	public String closeConnection() {
+		docker.close();
+		containers = null;
+		return "Docker connections closed.";
 	}
 
 }

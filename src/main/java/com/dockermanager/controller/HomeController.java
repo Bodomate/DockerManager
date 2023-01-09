@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.dockermanager.domain.LocalContainer;
 import com.dockermanager.service.DockerManagerService;
 import com.spotify.docker.client.exceptions.DockerException;
 
@@ -27,16 +26,26 @@ public class HomeController {
 	
 	@RequestMapping("/containers")
 	public String containers(Model model) throws DockerException, InterruptedException {
-		model.addAttribute("containers", dockerService.getLocalContainers());
-		model.addAttribute("count",dockerService.getLocalContainers().size());
-		if (dockerService.getLocalContainers().isEmpty()) {
-			model.addAttribute("message", "Please connect to a running docker on Connect page.");			
+		String message = "";
+		if (dockerService.getHost() != "") {
+			if (dockerService.getLocalContainers().isEmpty()) {
+				message = "No containers to show.";			
+			} else {
+				model.addAttribute("containers", dockerService.getLocalContainers());
+				model.addAttribute("count",dockerService.getLocalContainers().size());
+			}
+		} else {
+			message = "Please connect to a running docker on Connect page.";
 		}
+		model.addAttribute("message", message);
 		return "containers";
 	}
 
 	@RequestMapping(value="/create")
-	public String create() {
+	public String create(Model model) {
+		if (dockerService.getHost() == "") {
+			model.addAttribute("message", "Please connect to a running docker on Connect page.");
+		}
 		return "create";
 	}
 	
@@ -45,12 +54,22 @@ public class HomeController {
 		return "contact";
 	}
 	
-	@RequestMapping(value="/connectSuccess", method=RequestMethod.POST)
+	@RequestMapping(value="/connect", method=RequestMethod.POST, params="action=Connect")
 	public String addURL(@RequestParam("url") String url, Model model) {
 			try {
 				model.addAttribute("message",dockerService.connect(url)+" connected successfully.");
 			} catch (DockerException | InterruptedException e) {
 				model.addAttribute("message", "Unable to connect to the host: (" + e.getMessage() + ")");
+			}
+		return "connect";
+	}
+	
+	@RequestMapping(value="/connect", method=RequestMethod.POST, params="action=Disconnect")
+	public String disconnect(Model model) {
+		if (dockerService.getHost() == "") {
+				model.addAttribute("message","No Docker host connected.");
+			} else {
+				model.addAttribute("message", dockerService.closeConnection());
 			}
 		return "connect";
 	}
@@ -131,7 +150,11 @@ public class HomeController {
 		if (image == "" | ports == "" | cmd == "") {
 			model.addAttribute("message", "Please fill all input texts!");
 		} else {
-			model.addAttribute("message", dockerService.createContainer(image, ports, cmd) + " has been created successfully.");
+			if (dockerService.getHost() == "") {
+				model.addAttribute("message", "Docker server not connected! Please connect to a Docker server!");
+			} else {
+				model.addAttribute("message", dockerService.createContainer(image, ports, cmd) + " has been created successfully.");
+			}
 		}
 		return "create";
 	}

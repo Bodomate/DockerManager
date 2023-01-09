@@ -41,10 +41,11 @@
 
 	<section class="main">
 		<div class="content">
-			<form action="connectSuccess" method="POST">
+			<form action="connect" method="POST">
 				<label>Please type in the docker URL:</label>
 				<input type='text' value="192.168.0.102:420" name='url' />
-				<input type="submit" value="Connect">
+				<input type="submit" name="action" value="Connect">
+				<input type="submit" name="action" value="Disconnect">
 			</form>
 			<label th:text="${message}"></label>
 		</div>
