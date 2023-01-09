@@ -131,7 +131,6 @@ public class DockerManagerService {
 	public String createContainer(String image, String ports, String cmd) throws DockerException, InterruptedException {
 		docker.pull(image);
 
-		// Bind container ports to host ports
 		final String[] portsArray = ports.split(" ");
 		final Map<String, List<PortBinding>> portBindings = new HashMap<>();
 		for (String port : portsArray) {
@@ -142,7 +141,6 @@ public class DockerManagerService {
 
 		final HostConfig hostConfig = HostConfig.builder().portBindings(portBindings).build();
 
-		// Create container with exposed ports
 		final ContainerConfig containerConfig = ContainerConfig.builder()
 		    .hostConfig(hostConfig)
 		    .image(image).exposedPorts(ports)

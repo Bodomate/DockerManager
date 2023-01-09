@@ -6,7 +6,6 @@
 
 	<title>Docker Manager - Connect</title>
 
-	<!-- load stylesheets -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
 	<link rel="stylesheet" href="css/dockerstyle.css">
 </head>
@@ -15,7 +14,6 @@
 	<div class="header">
 		<a href="/index" class="title">Docker Manager</a>
 				
-		<!-- navbar -->
 		<nav class="navbar">
 			<div class="navblock">
 				<ul class="navbar-list">
@@ -43,7 +41,7 @@
 		<div class="content">
 			<form action="connect" method="POST">
 				<label>Please type in the docker URL:</label>
-				<input type='text' value="192.168.0.102:420" name='url' />
+				<input type='text' placeholder="<IP address>:<port>" name='url' />
 				<input type="submit" name="action" value="Connect">
 				<input type="submit" name="action" value="Disconnect">
 			</form>

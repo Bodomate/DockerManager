@@ -179,7 +179,7 @@ h2 {
 }
 
 .message {
-	white-space: pre;
+	white-space: pre-wrap;
 }
 
 @media (max-width: 1200px) {	
@@ -189,6 +189,11 @@ h2 {
 	
 	.footer {
 		padding-bottom: 25px;
+	}
+	
+	.navblock ul li {
+		display: inline-block;
+		margin-bottom: 25px;
 	}
 }
 
