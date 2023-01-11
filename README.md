@@ -2,34 +2,34 @@ Docker Manager - Online Docker Client API
 
 ENG:
 
-Prerequisites:
-	- Java 17
-	- Maven
+Prerequisites:<br />
+* Java 17<br />
+* Maven
 
-Run:
-	- Go to the root directory of the application: DockerManager
-	- Start the application with the following command: "mvn spring-boot:run"
+Run:<br />
+* Go to the root directory of the application: DockerManager<br />
+* Start the application with the following command: "mvn spring-boot:run"
 
-Testing:
-	- Open a web browser
-	- Go to localhost:8080 - The webpages will show up.
-	- Go to Connect page with the navigation menu.
-	- You have to type in a Docker server's location (<IP address>:<port>). If you need an online server for testing, you can use 81.183.27.191:555.
-	- Then you can use all functions on the webpages as intended and written on the Home page.
+Testing:<br />
+* Open a web browser<br />
+* Go to localhost:8080 - The webpages will show up.<br />
+* Go to Connect page with the navigation menu.<br />
+* You have to type in a Docker server's location (IP address:port). If you need an online server for testing, you can use 81.183.27.191:555.<br />
+* Then you can use all functions on the webpages as intended and written on the Home page.
 
 HUN:
 
-Technikai feltételek:
-	- Java 17
-	- Maven
+Technikai feltételek:<br />
+* Java 17<br />
+* Maven
 
-Futtatás:
-	- Nyissa meg a projekt gyökér könyvtárát: DockerManager
-	- Indítsa el a programot a következő parancs futtatásával: "mvn spring-boot:run"
+Futtatás:<br />
+* Nyissa meg a projekt gyökér könyvtárát: DockerManager<br />
+* Indítsa el a programot a következő parancs futtatásával: "mvn spring-boot:run"
 
-Tesztelés:
-	- Nyisson meg egy webböngészőt.
-	- Menjen a localhost:8080 oldalra - A program weboldalai fognak betölteni.
-	- Navigáljon a Connect oldalra a menü segítségével.
-	- Írja be a DOcker szerver elérhetőségét (<IP cím>:<port>). Ha a teszteléshez szüksége van egy online Docker szerverre, használhatja a 81.183.27.191:555-öt.
-	- Innentől az összes funkció elérhetővé válik. Erről leírás a Home oldalon található.
+Tesztelés:<br />
+* Nyisson meg egy webböngészőt.<br />
+* Menjen a localhost:8080 oldalra - A program weboldalai fognak betölteni.<br />
+* Navigáljon a Connect oldalra a menü segítségével.<br />
+* Írja be a DOcker szerver elérhetőségét (IP cím:port). Ha a teszteléshez szüksége van egy online Docker szerverre, használhatja a 81.183.27.191:555-öt.<br />
+* Innentől az összes funkció elérhetővé válik. Erről leírás a Home oldalon található.
