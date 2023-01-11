@@ -37,11 +37,16 @@ public class DockerManagerService {
 	}
 
 	public String connect(String url) throws DockerException, InterruptedException {
-		docker = DefaultDockerClient.builder()
-		        .uri(URI.create("http://"+url))
-		        .build();
-		fillLists();
-		return docker.getHost();
+		String fullUrl = "http://"+url;
+		String answer = "Please fill in the URL!";
+		if (!fullUrl.equals("http://")) {
+			docker = DefaultDockerClient.builder()
+			        .uri(URI.create(fullUrl))
+			        .build();
+			fillLists();
+			answer = docker.getHost()+" connected succesfully.";
+		}
+		return answer;
 	}
 	
 	public String getHost() {

@@ -57,7 +57,7 @@ public class HomeController {
 	@RequestMapping(value="/connect", method=RequestMethod.POST, params="action=Connect")
 	public String addURL(@RequestParam("url") String url, Model model) {
 			try {
-				model.addAttribute("message",dockerService.connect(url)+" connected successfully.");
+				model.addAttribute("message",dockerService.connect(url));
 			} catch (DockerException | InterruptedException e) {
 				model.addAttribute("message", "Unable to connect to the host: (" + e.getMessage() + ")");
 			}
